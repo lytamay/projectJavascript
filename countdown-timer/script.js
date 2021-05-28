@@ -1,31 +1,28 @@
-const daysEl = document.getElementById("days");
-const hoursEl = document.getElementById("hours");
-const minsEl = document.getElementById("mins");
-const secondsEl = document.getElementById("seconds");
+const days = document.querySelector('#days')
+const hours = document.querySelector('#hours')
+const mins = document.querySelector('#mins')
+const seconds = document.querySelector('#seconds')
 
-const newYears = "1 Jan 2022";
-
-function countdown() {
-    const newYearDate = new Date(newYears);
-    const currentDate = new Date();
-
-    const totalSecond = (newYearDate - currentDate);
-    const distanceDay = Math.floor(totalSecond/(3600000*24));
-    const distanceHour = Math.floor((totalSecond%(3600000*24))/3600000)
-    const distanceMin = Math.floor(((totalSecond%(3600000*24))%3600000)/60000)
-    const distanceSecond = Math.floor((((totalSecond%(3600000*24))%3600000)%60000)/1000)
+function calulator (){
+    const timeFuture = new Date('1 jan 2022')
+    const currentTime = new Date()
+    //  đổi từ miliseconds sang seconds
+    let distanceTime = (timeFuture - currentTime)/1000;
+    const day = Math.floor(distanceTime / 3600 / 24);
+    const hour = Math.floor(distanceTime / 3600) % 24;
+    const min = Math.floor(distanceTime / 60) % 60;
+    const second = Math.floor(distanceTime) % 60;
     
-    daysEl.innerHTML = formatTime(distanceDay);
-    hoursEl.innerHTML = formatTime(distanceHour);
-    minsEl.innerHTML = formatTime(distanceMin);
-    secondsEl.innerHTML = formatTime( distanceSecond);
-
+    days.innerHTML = formatTime(day)
+    hours.innerHTML = formatTime(hour)
+    mins.innerHTML = formatTime(min)
+    seconds.innerHTML = formatTime(second)
+}
+function formatTime(time){
+    return time<10  ? `0${time}`: time;
 }
 
-function formatTime(time) {
-    return time < 10 ? `0${time}` : time;
-}
+calulator();
+setInterval(calulator,1000);
 
-//countdown();
 
-setInterval(countdown, 1000);
